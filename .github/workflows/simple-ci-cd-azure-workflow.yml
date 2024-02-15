@@ -4,41 +4,24 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      -main
+  workflow_dispatch:
 
 jobs:
-  build:
+  hello:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: hello world
+        run: echo "hello world"
+        shell: bash
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-  deploy:
+  goodbye:
     runs-on: ubuntu-latest
-    needs: build
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Azure login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'demo-node-app'
-          package: '.'
+      - name: goodbye world
+        run: echo "goodby wold"
+        shell: bash
+    
